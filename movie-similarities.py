@@ -4,7 +4,7 @@ from math import sqrt
 
 def loadMovieNames():
     movieNames = {}
-    with open("ml-100k/u.ITEM", encoding='ascii', errors='ignore') as f:
+    with open("u.ITEM", encoding='ascii', errors='ignore') as f:
         for line in f:
             fields = line.split('|')
             movieNames[int(fields[0])] = fields[1]
@@ -49,7 +49,7 @@ sc = SparkContext(conf = conf)
 print("\nLoading movie names...")
 nameDict = loadMovieNames()
 
-data = sc.textFile("file:///SparkCourse/ml-100k/u.data")
+data = sc.textFile("u.data")
 
 # Map ratings to key / value pairs: user ID => movie ID, rating
 ratings = data.map(lambda l: l.split()).map(lambda l: (int(l[0]), (int(l[1]), float(l[2]))))
